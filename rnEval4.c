@@ -2,6 +2,11 @@
 #include<stdlib.h>
 #include<math.h>
 
+/*Programa compilar como C y ejecutar directamente
+Genera una imagen en la consola, pintando de blanco
+donde la función generada da 1.
+*/
+
 int nIng,nCapas,nSal,*capas;
 int n1,n2;
 
