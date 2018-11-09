@@ -1,4 +1,3 @@
-#
 
 n<-10000 #Número de muestras
 M = c()
@@ -24,6 +23,7 @@ for(i in 1:n){
 M <- matrix(M, nrow = n, byrow = TRUE)
 
 #se carga el programa en C
+#el archivo .so es generado al compilarlo con "R CMD SHILB"
 #ejecuta la función "main"
 dyn.load("rn.so")
 s<-.C("main",	as.integer(2),	as.integer(n),	t(M),	S)[2]
