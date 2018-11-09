@@ -4,7 +4,7 @@ M = c()
 S = c()
 
 #Esta es la función que queremos replicar
-#Tooma un par de coordenadas y devuelve 1 o 0
+#Toma un par de coordenadas y devuelve 1 o 0
 fn = function(x,y){
 	if(y<x^2){
 		return (1)
