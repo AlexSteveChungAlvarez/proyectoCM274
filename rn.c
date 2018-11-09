@@ -5,7 +5,7 @@
 
 /*Este programa consiste en una red cuyos nodos son del tipo perceptrón,
 estos reciben las entradas, las suma multiplicados por pesos y esta
-suma se pasa por una función activoadora antes de entregar su salida.
+suma se pasa por una función activadora antes de entregar su salida.
 */
 int nIng = 2;
 #define nCapas 2
