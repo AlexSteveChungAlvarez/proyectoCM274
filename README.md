@@ -11,3 +11,4 @@ Entonces el programa "rnEval.c" podrá recuperar los pesos para ejecutar la red 
 El script "Ap2.r" da algunos ejemplos de la ejecución de la función para algunos puntos determinados, y "Ap3.r" genera entradas aleatorias para comparar las salidas de la función generada con las de la que se quiso replicar.
 
 Al ejecutar los scripts varias veces y cambiando también las funciones objetivo (alterando el código) hemos observado que la función generada daba valores esperados incluso para valores que no salieron en las muestras. Para comparar mejor, hicimos un programa, "rnEval4.c", que muestra los valores obtenidos en una sección del plano.
+Podemos decir que dado un punto aleatorio, es muy probable que obtengamos las salida esperada, o sea, el error para la función generada es bajo.
