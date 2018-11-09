@@ -12,6 +12,7 @@ fn = function(x,y){
 		return (0)
 	}
 }
+#Funciones más complicadas han requerido un mayor número de muestras
 
 #Se genera una matriz con pares ordenados aleatorios
 #y un vector con sus respectivas salidas
