@@ -3,33 +3,29 @@
 #include<time.h>
 #include<math.h>
 
+/*Este programa consiste en una red cuyos nodos son del tipo perceptrón,
+estos reciben las entradas, las suma multiplicados por pesos y esta
+suma se pasa por una función activoadora antes de entregar su salida.
+*/
 int nIng = 2;
 #define nCapas 2
 #define nSal 1
 //#define nEntr 5
 
-int vecesEntr = 1;
+int vecesEntr = 1;//El proceso puede repetirse varias veces con las mismas entradas
 
-/*float ing[][nIng];/*={	{0,0,0},
-					{0,1,1},
-					{1,0,1},
-					{1,1,0},
-					{0,0,1}};*/
-							
-/*float sal[][nSal];/*={	{1},
-					{1},
-					{0},
-					{1},
-					{0}};*/
 
-int capas[nCapas] = {5,5};
+int capas[nCapas] = {5,5};//Capas intermedias
 
 int c[nCapas+2];
 float *y,*s,*g,*w;
 
 float getRandom();
 void entrenar(int,float[][nIng],float[][nSal]);
+
+//Ap.r usa la función main
 void main(int *pnIng,int *pnEntr,double *RIng,double RSal[]){
+	//Recibe los datos de R
 	nIng = *pnIng;
 	int nEntr = *pnEntr;
 	printf("%d\n",nEntr);
@@ -42,9 +38,7 @@ void main(int *pnIng,int *pnEntr,double *RIng,double RSal[]){
 	for(i=0;i<nEntr;i++){
 		for(j=0;j<nIng;j++){
 			ing[i][j]=RIng[i*nIng+j];
-			//printf("%f\t",(float)RIng[i][j]);
 		}
-		//puts("");
 		sal[i][0] = RSal[i];
 	}
 	c[0] = nIng;
@@ -58,10 +52,10 @@ void main(int *pnIng,int *pnEntr,double *RIng,double RSal[]){
 		n1+= c[i];
 		n2+= c[i-1]*c[i];
 	}
-	y = (float*) malloc(sizeof(float)*n1);
-	s = (float*) malloc(sizeof(float)*n1);
-	g = (float*) malloc(sizeof(float)*n1);
-	w = (float*) malloc(sizeof(float)*n2);
+	y = (float*) malloc(sizeof(float)*n1); //Salidas
+	s = (float*) malloc(sizeof(float)*n1); //Sumas
+	g = (float*) malloc(sizeof(float)*n1); //Usado en la retropropagación
+	w = (float*) malloc(sizeof(float)*n2); //Pesos
 	
 	for(i = 0;i < n1;i++){
 		y[i] = 0;
@@ -69,16 +63,18 @@ void main(int *pnIng,int *pnEntr,double *RIng,double RSal[]){
 		g[i] = 0;
 	}
 	
+	//Los pesos empiezan como números aleatorios
 	srand((int)time(NULL));
 	for(i = 0;i < n2;i++)
 		w[i] = -1+2*getRandom();
 	
+	//Aprendizaje
 	for (v = 0;v < vecesEntr;v++)
 		for (i = 0; i < nEntr; i++)
 			entrenar(i,ing,sal);
-			
+	
+	//Después de aprender guarda los pesos obtenidos en un archivo		
 	FILE *file;
-	//file = fopen("/home/gabrielvicente/Documentos/C/rnW.txt","w");
 	file = fopen("rnW.txt","w");
 
 	if(file == NULL)
@@ -96,19 +92,19 @@ void main(int *pnIng,int *pnEntr,double *RIng,double RSal[]){
 	free(s);
 	free(g);
 	free(w);
-			
 }
 float getRandom(){
 	return ((float)rand())/RAND_MAX;
 }
-float fun(float f){
+float fun(float f){ //función activadora
 	return 1/(1+exp(-f));
 }
 void entrenar(int ci,float ing[][nIng],float sal[][nSal]){
+	//Retropropagación
 	int ii=0,n;
 	float pls=0;
 	int i,j,k;
-	//ida
+	//ida, calcula la salida con los pesos actuales
 	for(i=0;i<c[1];i++){
 		for(j = 0;j<c[0];j++){
 			pls+=w[ii]*ing[ci][j];
@@ -136,7 +132,7 @@ void entrenar(int ci,float ing[][nIng],float sal[][nSal]){
 			pls=0;
 		}		
 	}
-	//Vuelta
+	//Vuelta, a partir de las diferencias con las muestras, modifica los pesos
 	n = 0;
 	for(i = 1;i<=nCapas;i++)
 		n+=c[i];
