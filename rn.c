@@ -16,6 +16,7 @@ int vecesEntr = 1;//El proceso puede repetirse varias veces con las mismas entra
 
 
 int capas[nCapas] = {5,5};//Capas intermedias
+//Cada nodo de una capa entrega su salida a cada nodo de la siguiente
 
 int c[nCapas+2];
 float *y,*s,*g,*w;
@@ -105,7 +106,7 @@ void entrenar(int ci,float ing[][nIng],float sal[][nSal]){
 	float pls=0;
 	int i,j,k;
 	//ida, calcula la salida con los pesos actuales
-	for(i=0;i<c[1];i++){
+	for(i=0;i<c[1];i++){//Primera capa
 		for(j = 0;j<c[0];j++){
 			pls+=w[ii]*ing[ci][j];
 			ii++;
@@ -114,7 +115,7 @@ void entrenar(int ci,float ing[][nIng],float sal[][nSal]){
 		y[i] = fun(pls);
 		pls = 0;
 	}
-	for(i=2;i<=nCapas+1;i++){
+	for(i=2;i<=nCapas+1;i++){//Capas intermedias y final
 		pls = 0;
 		ii = 0;
 		for(j=1;j<i;j++)
