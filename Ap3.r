@@ -12,6 +12,6 @@ fn = function(x,y){
 
 for(i in 1:n){
 	p = runif(2,-1,1)
-	r = c(p,.C("main",p,r)[2],fn(p))
+	r = c(p,.C("main",p,r)[2],fn(p[1],p[2]))
 	print(r)
 }
